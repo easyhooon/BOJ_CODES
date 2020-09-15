@@ -8,42 +8,49 @@ using namespace std;
 int n, inDegree[MAX];
 vector<int> a[MAX];
 
-void topologySort() {
+void topologySort()
+{
 	int result[MAX];
 	queue<int> q;
-	//ÁøÀÔ Â÷¼ö°¡ 0ÀÎ ³ëµå¸¦ Å¥¿¡ »ğÀÔ
-	for (int i = 1; i <= n; i++) {
-		if (inDegree[i] == 0) q.push(i);
+	//ì§„ì… ì°¨ìˆ˜ê°€ 0ì¸ ë…¸ë“œë¥¼ íì— ì‚½ì….
+	for (int i = 1; i <= n; i++)
+	{
+		if (inDegree[i] == 0)
+			q.push(i);
 	}
-	//Á¤·ÄÀÌ ¿ÏÀüÈ÷ ¼öÇàµÇ·Á¸é Á¤È®È÷ n°³ÀÇ ³ëµå¸¦ ¹æ¹®ÇÕ´Ï´Ù.
-	for (int i = 1; i <= n; i++) {
-		if (q.empty()) {
-			printf("»çÀÌÅ¬ÀÌ ¹ß»ıÇß½À´Ï´Ù.");
+	//ì •ë ¬ì´ ì™„ì „íˆ ìˆ˜í–‰ë˜ë ¤ë©´ ì •í™•íˆ nê°œì˜ ë…¸ë“œë¥¼ ë°©ë¬¸
+	for (int i = 1; i <= n; i++)
+	{
+		if (q.empty())
+		{
+			//nê°œë¥¼ ë°©ë¬¸í•˜ê¸° ì „ì— íê°€ ë¹„ì–´ë²„ë¦¬ë©´ ì‚¬ì´í´ì´ ë°œìƒí•œ ê²ƒ
+			printf("ì‚¬ì´í´ ë°œìƒ");
 			return;
 		}
 		int x = q.front();
 		q.pop();
 		result[i] = x;
-		//size() -> ¿ø¼ÒÀÇ °³¼ö(push_back()À¸·Î ³ÖÀº °¹¼ö) 
-		for (int i = 0; i < a[x].size(); i++) {
+		for (int i = 0; i < a[x].size(); i++)
+		{
 			int y = a[x][i];
-			// »õ·Ó°Ô ÁøÀÔÂ÷¼ö°¡ 0ÀÌ µÈ Á¤Á¡À» Å¥¿¡ »ğÀÔÇÕ´Ï´Ù.
+			//ìƒˆë¡­ê²Œ ì§„ì…ì°¨ìˆ˜ê°€ 0ì´ ëœ ì •ì ì„ íì— ì‚½ì….
 			if (--inDegree[y] == 0)
 				q.push(y);
 		}
 	}
-	for (int i = 1; i <= n; i++) {
+	for (int i = 1; i <= n; i++)
+	{
 		printf("%d ", result[i]);
 	}
 }
 
-int main(void) {
+int main(void)
+{
 	n = 7;
 	a[1].push_back(2);
 	inDegree[2]++;
 	a[1].push_back(5);
 	inDegree[5]++;
-	//a[1]¿¡ 2°³¸¦ ³Ö¾úÀ¸¹Ç·Î a[1].size()=2. a[1][1] == 5
 	a[2].push_back(3);
 	inDegree[3]++;
 	a[3].push_back(4);
@@ -54,6 +61,5 @@ int main(void) {
 	inDegree[6]++;
 	a[6].push_back(7);
 	inDegree[7]++;
-	//for(int i = 0; i <= 6; i++) printf("%d ", a[i].size());
 	topologySort();
 }

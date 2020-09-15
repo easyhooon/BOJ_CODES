@@ -1,4 +1,4 @@
-//ÃÖ´Ü°æ·ÎÀÇ °æ·Î¸¦ Ãâ·ÂÇÏ´Â ¹®Á¦
+//ë°±íŠ¸ë˜í‚¹ ë¬¸ì œì˜ ì •ì„
 
 #include <bits/stdc++.h>
 
@@ -6,9 +6,9 @@ using namespace std;
 const int MAX = 200000;
 bool check[MAX + 1];
 int dist[MAX + 1];
-int from[MAX + 1]; //°æ·Î¸¦ ÀúÀåÇÏ´Â ¹è¿­ 
+int from[MAX + 1]; //ê²½ë¡œ ì €ì¥ ë°°ì—´
 
-//°æ·Î Ãâ·Â ÇÔ¼ö 
+//ê²½ë¡œë¥¼ ì¬ê·€ë¥¼ ì´ìš©í•´ ì¶œë ¥ 
 void print(int n, int m) {
 	if (n != m) {
 		print(n, from[m]);

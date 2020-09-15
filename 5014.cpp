@@ -44,13 +44,12 @@ int main() {
 
 	bfs(s);
 
-	//¹Ý·Ê
+	//ì˜ˆì™¸
 	if (s == g) {
 		cout << '0' << '\n';
 
 		return 0;
 	}
-	//ÀÌ°É Æ÷ÇÔÇÏ´Â bfs´Â ¸ø¸¸µå³ª 
 
 	if (dist[g] == 0) {
 		cout << "use the stairs" << '\n';

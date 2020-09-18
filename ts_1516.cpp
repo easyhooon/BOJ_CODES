@@ -1,14 +1,13 @@
 //inDegree => 진입차수
 
-#include <iostream>
-#include <vector>
-#include <queue>
+#include <bits/stdc++.h>
 #define MAX 501
 
 using namespace std;
 
-int n, inDegree[MAX], time[MAX], result[MAX];
-vector<int> a[MAX];
+int n, inDegree[MAX], dtime[MAX], result[MAX];
+
+vector<int> v[MAX];
 
 void topologySort()
 {
@@ -17,18 +16,20 @@ void topologySort()
 	{
 		if (inDegree[i] == 0)
 		{
-			result[i] = time[i];
+			result[i] = dtime[i];
 			q.push(i);
 		}
 	}
 	for (int i = 1; i <= n; i++)
 	{
 		int x = q.front();
+		int vsize = v[x].size();
 		q.pop();
-		for (int i = 0; i < a[x].size(); i++)
+
+		for (int i = 0; i < vsize; i++)
 		{
-			int y = a[x][i];
-			result[y] = max(result[y], result[x] + time[y]);
+			int y = v[x][i];
+			result[y] = max(result[y], result[x] + dtime[y]);
 			if (--inDegree[y] == 0)
 				q.push(y);
 		}
@@ -36,25 +37,29 @@ void topologySort()
 
 	for (int i = 1; i <= n; i++)
 	{
-		printf("%d\n", result[i]);
+		cout << result[i] << '\n';
 	}
 }
 
 int main(void)
 {
-	scanf("%d", &n);
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+
+	cin >> n;
 
 	for (int i = 1; i <= n; i++)
 	{
-		scanf("%d", &time[i]);
+		cin >> dtime[i];
+
 		while (1)
 		{
 			int x;
-			scanf("%d", &x);
+			cin >> x;
 			if (x == -1)
 				break;
 			inDegree[i]++;
-			a[x].push_back(i);
+			v[x].push_back(i);
 		}
 	}
 	topologySort();

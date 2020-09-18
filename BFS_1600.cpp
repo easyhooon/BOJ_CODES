@@ -21,7 +21,6 @@ int dist[222][222];
 bool isin(int y, int x)
 {
 	return 1 <= y && y <= H && 1 <= x && x <= W;
-	//이 조건을 만족하면 1
 }
 
 void bfs(int y, int x)

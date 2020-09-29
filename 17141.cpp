@@ -21,7 +21,7 @@ bool isin(int y, int x)
 
 int bfs(int *arr)
 {
-    bool visit[55][55] = {false};
+    bool visit[51][51] = {false};
     int min_time = 0, left = empty_count;
 
     queue<coord> q;

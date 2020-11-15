@@ -1,59 +1,61 @@
+// 트리 문제 틀  
 #include <bits/stdc++.h>
 
 using namespace std;
 
-struct Edge {
-	int to;
-	int cost;
-	Edge(int to, int cost) : to(to), cost(cost) {
-	}
-};
+const int MAX = 10000;
+int n;
+bool check[MAX + 1];
+vector<pair<int, int>> node[MAX + 1];
 
-vector<Edge> a[10001];
-bool check[10001];
+int max_len;       //지름 길이
+int max_len_point; //지름에 해당하는 끝점
 
-pair<int, int> dfs(int x) {
-	check[x] = true;
-	vector<int> heights;
-	int ans = 0;
-	for (auto &e : a[x]) {
-		int y = e.to;
-		int cost = e.cost;
-		if (check[y] == false) {
-			auto p = dfs(y);
-			if (ans < p.first) ans = p.first;
-			heights.push_back(p.second + cost);
-		}
-	}
-	int height = 0;
-	sort(heights.begin(), heights.end());
-	reverse(heights.begin(), heights.end());
-	if (heights.size() >= 1) {
-		height = heights[0];
-		if (ans < height) {
-			ans = height;
-		}
-	}
-	if (heights.size() >= 2) {
-		if (ans < heights[0] + heights[1]) {
-			ans = heights[0] + heights[1];
-		}
-	}
-	return make_pair(ans, height);
+void dfs(int point, int length)
+{
+    if (!check[point])
+    {
+        check[point] = true;
+        //max_len 과 max_len_point 갱신
+        if (max_len < length)
+        {
+            max_len = length;
+            max_len_point = point;
+        }
 
+        for (int i = 0; i < node[point].size(); i++)
+        {
+            dfs(node[point][i].first, length + node[point][i].second);
+        }
+    }
 }
 
-int main() {
-	int n;
-	scanf("%d", &n);
-	for (int i = 0; i < n - 1; i++) {
-		int u, v, w;
-		scanf("%d %d %d", &u, &v, &w);
-		a[u].push_back(Edge(v, w));
-		a[v].push_back(Edge(u, w));
-	}
-	auto ans = dfs(1);
-	cout << ans.first << '\n';
+int main()
+{
 
-	return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    cin >> n;
+
+    int parent, child, length;
+    for (int i = 0; i < n - 1; i++)
+    {
+        cin >> parent >> child >> length;
+        node[parent].push_back(make_pair(child, length));
+        node[child].push_back(make_pair(parent, length));
+    }
+
+    //가장 멀리 있는 정점(max_len_point) 구하기
+    dfs(1, 0);
+
+    max_len = 0;
+
+    memset(check, 0, sizeof(check));
+
+    //max_len_point와 가장 멀리 있는 정점과의 거리 구하기
+    dfs(max_len_point, 0);
+    cout << max_len << endl;
+
+    return 0;
 }

@@ -1,52 +1,57 @@
-#include <iostream>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-int N;
-int vx[15 + 1], vy[15 + 1];
+const int MAX = 15;
+int n;
+int vx[MAX + 1], vy[MAX + 1];
 
-int go(int y, int x)
+int bt(int y, int x)
 {
-
 	//가지치기(back tracking)
 	for (int i = 0; i < y; i++)
 	{
 		//직선 겹침
 		if (y == vy[i])
-			return 0; //가로위치 겹침
+			return 0; //가로위치 겹침->실패
 		if (x == vx[i])
-			return 0; //세로위치 겹침
+			return 0; //세로위치 겹침->실패
 		if (abs(x - vx[i]) == abs(y - vy[i]))
-			return 0; //대각선위치 겹침
+			return 0; //대각선위치 겹침->실패
 	}
 
 	//종료 조건
-	if (y == N - 1)
+	if (y == n - 1)
 	{
-		//말단에서 퀸 배열이 성공적인지 체크
-		//만약 성공적이라면 1리턴
+		//마지막으로 퀸 배열이 성공적인지 체크
+		//성공
 		return 1;
 	}
 
-	//말의 위치를 기억
+	//말의 위치 정보를 기억
 	vy[y] = y, vx[y] = x;
 
-	int r = 0;
-	for (int i = 0; i < N; i++)
+	int cnt = 0;
+	for (int i = 0; i < n; i++)
 	{
-		r += go(y + 1, i);
+		cnt += bt(y + 1, i);
 	}
-	return r;
+	return cnt;
 }
 
 int main(void)
 {
-	cin >> N;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
 
-	int r = 0;
-	for (int i = 0; i < N; i++)
+	cin >> n;
+
+	int ans = 0;
+	for (int i = 0; i < n; i++)
 	{
-		r += go(0, i);
+		ans += bt(0, i);
 	}
-	cout << r;
+	cout << ans << '\n';
+
 	return 0;
 }

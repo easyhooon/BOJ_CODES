@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 #define INF 987654321
@@ -64,6 +65,7 @@ int main(void)
 			person = i;
 		}
 	}
-	cout << person << endl;
+	cout << person << '\n';
+
 	return 0;
 }

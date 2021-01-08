@@ -1,4 +1,4 @@
-/*#include<stdio.h>
+#include<stdio.h>
 #include<iostream>
 
 using namespace std;
@@ -34,4 +34,4 @@ int main() {
 		cout << (dp[n][1] + dp[n][2] + dp[n][3]) % 1000000009 << endl;
 	}
 	return 0;
-}*/
+}

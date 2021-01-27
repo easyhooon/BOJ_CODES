@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-//x, y °³ Β¥Αυ³ª³Χ
+//x, y κ° μ§μ¦λ‚λ„¤ 
 
 using namespace std;
 

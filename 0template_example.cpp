@@ -1,60 +1,44 @@
-//이 풀이 틀 상당히 괜찮은거 같다. 일관된 틀 이 틀에 맞춰 풀어보도록 하자.
 #include <bits/stdc++.h>
 
 using namespace std;
 
-int player[11][11], ans;
-bool check[11];
+const int MAX = 100; //임의의 MAX number
 
+int n, m; //문제의 입력 변수
+int arr[MAX+1][MAX+1]; // 배열 선언 
+int ans; // 문제의 해답에 해당하는 변수 선언 
+
+//Test Case가 여러개인 경우 초기화 함수가 필요, 그렇지 않을 경우 필요x
 void initialize()
 {
-    ans = 0;
-    memset(check, false, sizeof(check));
-    memset(player, 0, sizeof(player));
+    ans = 0; //답의 초기화 
+    //배열의 초기화
+    memset(arr, false, sizeof(arr));
 }
 
+//문제의 입력을 받는 함수 
 void input()
 {
-    for (int i = 0; i < 11; i++)
+    cin >> n >> m;
+    
+    //많은 문제가 이차원배열의 입력을 받기 때문에 살려놓았다. 안받으면 뭐 지우면 된다.
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < 11; j++)
+        for (int j = 0; j < m; j++)
         {
-            cin >> player[i][j];
+            cin >> arr[i][j];
         }
     }
 }
 
-void choice(int cnt, int sum)
-{
-    if (cnt == 11)
-    {
-        if (ans < sum)
-            ans = sum;
-        return;
-    }
+//solution에 필요한 함수 구현하는 공간
 
-    for (int i = 0; i < 11; i++)
-    {
-        if (player[cnt][i] != 0 && check[i] == false)
-        {
-            check[i] = true;
-            choice(cnt + 1, sum + player[cnt][i]);
-            check[i] = false;
-        }
-    }
-}
 
+// 위에서 구현한 함수들을 통해 문제를 직접적으로 풀어내는 함수
+// 문제의 요구사항이 간단할 경우 함수를 모듈화하지 않고 solution 내부에서 함수를 구현해도 됨 
 void solution()
 {
-    for (int i = 0; i < 11; i++)
-    {
-        if (player[0][i] != 0)
-        {
-            check[i] = true;
-            choice(1, player[0][i]);
-            check[i] = false;
-        }
-    }
+    
 }
 
 void solve()
@@ -63,11 +47,11 @@ void solve()
     cin >> tc;
     for (int i = 1; i <= tc; i++)
     {
-        initialize();
-        input();
-        solution();
+        initialize(); //초기화하고
+        input(); //입력을 받고
+        solution(); // 푼다
 
-        cout << ans << '\n';
+        cout << ans << '\n'; //답을 출력
     }
 }
 
